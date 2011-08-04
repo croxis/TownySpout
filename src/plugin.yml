@@ -1,0 +1,21 @@
+﻿name: TownySpout
+main: net.croxis.townyspout.TownySpout
+version: 0.1
+author: croxis
+website: https://github.com/croxis/TownySpout
+database: true
+startup: postworld
+description: >
+    Extends Towny functionality with Spout.
+depend:
+    - Towny    
+
+############################################################
+# +------------------------------------------------------+ #
+# |                   Towny commands                     | #
+# +------------------------------------------------------+ #
+############################################################
+
+commands:
+    townx:
+        aliases: [tx]
