@@ -1,6 +1,6 @@
 ﻿name: TownySpout
 main: net.croxis.townyspout.TownySpout
-version: 0.1
+version: 0.2
 author: croxis
 website: https://github.com/croxis/TownySpout
 database: true
@@ -9,13 +9,26 @@ description: >
     Extends Towny functionality with Spout.
 depend:
     - Towny    
+    - Spout
 
 ############################################################
 # +------------------------------------------------------+ #
-# |                   Towny commands                     | #
+# |               TownySpout commands                    | #
 # +------------------------------------------------------+ #
 ############################################################
 
 commands:
     townx:
         aliases: [tx]
+    townyadminx:
+        aliases: [tax]
+        
+music:
+    sample1: http://your.site.here/song1.ogg
+    sample2: http://your.site.here/song2.ogg
+cape:
+    sample1: http://your.site.here/cape1.png
+    sample2: http://your.site.here/cape2.png
+texture:
+    pack1: http://your.site.here/texture1.zip
+    pack2: http://your.site.here/texture2.zip

@@ -26,12 +26,16 @@ public class TownyxListener extends TownyListener{
 		plugin.towny.sendDebugMsg("TownEnterEvent");
 		SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", event.getTown().getName()).findUnique();
 		SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_id", sqltown.getId()).findUnique();
+		SpoutPlayer spoutPlayer = SpoutManager.getPlayer(event.getPlayer());
 		if (sqltownx != null){
 			plugin.towny.sendDebugMsg("TownEnterEventTownINDB");
 			if (sqltownx.getMusicURL() != null){
 				plugin.towny.sendDebugMsg("TownEnterEventPLAYING: " + sqltownx.getMusicURL());
-				SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
-				SpoutManager.getSoundManager().playCustomMusic(plugin, player, sqltownx.getMusicURL(), true);
+				SpoutManager.getSoundManager().playCustomMusic(plugin, spoutPlayer, sqltownx.getMusicURL(), true);
+			}
+			if (sqltownx.getTexturePackURL() != null){
+				plugin.towny.sendDebugMsg("TownEnterEventTexture: " + sqltownx.getTexturePackURL());
+				spoutPlayer.setTexturePack(sqltownx.getTexturePackURL());
 			}
 		}
 	}
