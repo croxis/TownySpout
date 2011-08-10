@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import javax.persistence.PersistenceException;
 
+import net.croxis.townyspout.db.SQLResidence;
+import net.croxis.townyspout.db.SQLResidentx;
 import net.croxis.townyspout.db.SQLTownx;
 import net.croxis.townyspout.gui.TownGui;
 import net.croxis.townyspout.listeners.TownySpoutGuiListener;
@@ -22,6 +24,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import ca.xshade.bukkit.towny.Towny;
 import ca.xshade.bukkit.towny.api.TownPermissionSetEvent;
+import ca.xshade.bukkit.towny.db.SQLNation;
 import ca.xshade.bukkit.towny.object.Town;
 
 public class TownySpout extends JavaPlugin {
@@ -47,15 +50,14 @@ public class TownySpout extends JavaPlugin {
 		towny = (Towny) getServer().getPluginManager().getPlugin("Towny");
 		if (towny == null){
 			System.out.println("NO TOWNY DETECTED. Please check Towny configuration.");
+			getServer().getPluginManager().disablePlugin(this);
 			return;
 		} 
 		setupDatabase();
 		loadConfig();
 		apearancemanager = new AppearanceManager(this);
 		
-		final PluginManager pluginManager = getServer().getPluginManager();
-		//final Plugin towny = (Plugin)pluginManager.getPlugin("Towny");
-		
+		final PluginManager pluginManager = getServer().getPluginManager();		
 		
 		pluginManager.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, townyxListener, Priority.Normal, this);
@@ -82,6 +84,9 @@ public class TownySpout extends JavaPlugin {
     public List<Class<?>> getDatabaseClasses() {
         List<Class<?>> list = new ArrayList<Class<?>>();
         list.add(SQLTownx.class);
+        list.add(SQLNation.class);
+        list.add(SQLResidence.class);
+        list.add(SQLResidentx.class);
         return list;
     }
 	

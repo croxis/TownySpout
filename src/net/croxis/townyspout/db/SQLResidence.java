@@ -5,18 +5,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ca.xshade.bukkit.towny.db.SQLTown;
-
-
 @Entity()
-@Table(name = "townyspout_towns")
-public class SQLTownx {
+@Table(name = "townyspout_residences")
+public class SQLResidence {
 	@Id
     private int id;
 
-	private String townName;
-	
-	private String texturePackURL;
+	private String playerName;
 	
 	private String capeURL;
 	
@@ -30,20 +25,12 @@ public class SQLTownx {
 		this.id = id;
 	}
 
-	public String getTownName() {
-		return townName;
+	public String getPlayerName() {
+		return playerName;
 	}
 
-	public void setTownName(String townName) {
-		this.townName = townName;
-	}
-
-	public String getTexturePackURL() {
-		return texturePackURL;
-	}
-
-	public void setTexturePackURL(String texturePackURL) {
-		this.texturePackURL = texturePackURL;
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 
 	public String getCapeURL() {
@@ -62,4 +49,5 @@ public class SQLTownx {
 		this.musicURL = musicURL;
 	}
 
+	
 }

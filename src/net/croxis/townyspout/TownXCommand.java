@@ -78,16 +78,12 @@ private TownySpout plugin;
 			player.sendMessage(ChatTools.formatCommand("", "/townx set", "music [node]", ""));
 		} else {
 			if (split[0].equalsIgnoreCase("music")){
-				SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", town.getName()).findUnique();
-				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_id", sqltown.getId()).findUnique();
-				if (sqltown == null){
-					plugin.towny.sendDebugMsg("No Towny town");
-				}
+				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", town.getName()).findUnique();
 				if (sqltownx == null){
 					plugin.towny.sendDebugMsg("No Townyx town");
 					sqltownx = new SQLTownx();
-					sqltownx.setTownId(sqltown.getId());
-					plugin.towny.sendDebugMsg("Townyx town: " + sqltownx.getId());
+					sqltownx.setTownName(town.getName());
+					plugin.towny.sendDebugMsg("Townyx town: " + town.getName());
 				}
 				if (split.length == 1)
 					sqltownx.setMusicURL(null);
@@ -102,16 +98,11 @@ private TownySpout plugin;
 					
 				plugin.getDatabase().save(sqltownx);
 			} else if (split[0].equalsIgnoreCase("cape")){
-				SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", town.getName()).findUnique();
-				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_id", sqltown.getId()).findUnique();
-				if (sqltown == null){
-					plugin.towny.sendDebugMsg("No Towny town");
-				}
+				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", town.getName()).findUnique();
 				if (sqltownx == null){
 					plugin.towny.sendDebugMsg("No Townyx town");
 					sqltownx = new SQLTownx();
-					sqltownx.setTownId(sqltown.getId());
-					plugin.towny.sendDebugMsg("Townyx town: " + sqltownx.getId());
+					sqltownx.setTownName(town.getName());
 				}
 				if (split.length == 1)
 					sqltownx.setCapeURL(null);
@@ -126,15 +117,11 @@ private TownySpout plugin;
 					
 				plugin.getDatabase().save(sqltownx);
 			} else if (split[0].equalsIgnoreCase("texture")){
-				SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", town.getName()).findUnique();
-				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_id", sqltown.getId()).findUnique();
-				if (sqltown == null){
-					plugin.towny.sendDebugMsg("No Towny town");
-				}
+				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", town.getName()).findUnique();
 				if (sqltownx == null){
 					plugin.towny.sendDebugMsg("No Townyx town");
 					sqltownx = new SQLTownx();
-					sqltownx.setTownId(sqltown.getId());
+					sqltownx.setTownName(town.getName());
 					plugin.towny.sendDebugMsg("Townyx town: " + sqltownx.getId());
 				}
 				if (split.length == 1)
