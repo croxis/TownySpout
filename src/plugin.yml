@@ -1,6 +1,6 @@
 ﻿name: TownySpout
 main: net.croxis.townyspout.TownySpout
-version: 0.2
+version: 0.3
 author: croxis
 website: https://github.com/croxis/TownySpout
 database: true

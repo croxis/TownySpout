@@ -1,12 +1,16 @@
 package net.croxis.townyspout;
 
 import net.croxis.townyspout.db.SQLTownx;
+import net.croxis.townyspout.gui.TownGui;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
+import ca.xshade.bukkit.towny.NotRegisteredException;
 import ca.xshade.bukkit.towny.TownyException;
 import ca.xshade.bukkit.towny.TownySettings;
 import ca.xshade.bukkit.towny.db.SQLTown;
@@ -20,7 +24,6 @@ private TownySpout plugin;
 
 	public TownXCommand(TownySpout instance) {
 		plugin = instance;
-		//plugin2 = instance;
 	}	
 	
 
@@ -28,21 +31,32 @@ private TownySpout plugin;
 			String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player)sender;
-			parseTownCommand(player, args);
+			try {
+				parseTownCommand(player, args);
+			} catch (NotRegisteredException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
-	private void parseTownCommand(Player player, String[] split) {
+	private void parseTownCommand(Player player, String[] split) throws NotRegisteredException {
 		if (split.length == 0){
-			player.sendMessage("Need additional info");
+			//player.sendMessage("Need additional info");
+			TownGui townGui = new TownGui(plugin);
+			townGui.create(player);
+			Resident resident = plugin.towny.getTownyUniverse().getResident(player.getName());
+			SpoutPlayer sPlayer = SpoutManager.getPlayer(player);
+			if (resident.hasTown())
+				plugin.addTownGui(sPlayer, resident.getTown().getName(), townGui);
+			else
+				plugin.addTownGui(sPlayer, "wild", townGui);
 			return;
 		}
 			String[] newSplit = StringMgmt.remFirstArg(split);
 			
 			if (split[0].equalsIgnoreCase("set"))
-				townSet(player, newSplit);
-			
+				townSet(player, newSplit);			
 	}
 
 	private void townSet(Player player, String[] split) {

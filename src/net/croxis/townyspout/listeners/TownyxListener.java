@@ -1,5 +1,6 @@
-package net.croxis.townyspout;
+package net.croxis.townyspout.listeners;
 
+import net.croxis.townyspout.TownySpout;
 import net.croxis.townyspout.db.SQLTownx;
 
 import org.bukkit.event.Event.Type;
@@ -8,6 +9,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import ca.xshade.bukkit.towny.api.AreaEnterEvent;
 import ca.xshade.bukkit.towny.api.TownEnterEvent;
+import ca.xshade.bukkit.towny.api.TownPermissionSetEvent;
 import ca.xshade.bukkit.towny.api.TownyListener;
 import ca.xshade.bukkit.towny.api.WildEnterEvent;
 import ca.xshade.bukkit.towny.db.SQLTown;
@@ -31,6 +33,7 @@ public class TownyxListener extends TownyListener{
 			plugin.towny.sendDebugMsg("TownEnterEventTownINDB");
 			if (sqltownx.getMusicURL() != null){
 				plugin.towny.sendDebugMsg("TownEnterEventPLAYING: " + sqltownx.getMusicURL());
+				SpoutManager.getSoundManager().stopMusic(spoutPlayer, false, 0);
 				SpoutManager.getSoundManager().playCustomMusic(plugin, spoutPlayer, sqltownx.getMusicURL(), true);
 			}
 			if (sqltownx.getTexturePackURL() != null){
@@ -45,6 +48,11 @@ public class TownyxListener extends TownyListener{
 		plugin.towny.sendDebugMsg("WildEnterEvent");
 		SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
 		SpoutManager.getSoundManager().stopMusic(player, false, 2000);
+	}
+	
+	@Override
+	public void onTownPermissionSet(TownPermissionSetEvent event) {
+		plugin.updateTownGui(event);
 	}
 
 }

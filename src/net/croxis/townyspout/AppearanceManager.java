@@ -43,7 +43,7 @@ public class AppearanceManager {
 				SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", townName).findUnique();
 				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_id", sqltown.getId()).findUnique();
 				if (sqltownx != null){
-					if (!sqltownx.getCapeURL().isEmpty()){
+					if (sqltownx.getCapeURL() != null){
 						SpoutManager.getAppearanceManager().setGlobalCloak(SpoutManager.getPlayer(player), sqltownx.getCapeURL());
 					}
 				}

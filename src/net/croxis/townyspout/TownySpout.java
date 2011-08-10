@@ -8,24 +8,34 @@ import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 
 import net.croxis.townyspout.db.SQLTownx;
+import net.croxis.townyspout.gui.TownGui;
+import net.croxis.townyspout.listeners.TownySpoutGuiListener;
+import net.croxis.townyspout.listeners.TownySpoutPlayerListener;
+import net.croxis.townyspout.listeners.TownyxListener;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.ConfigurationNode;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 import ca.xshade.bukkit.towny.Towny;
+import ca.xshade.bukkit.towny.api.TownPermissionSetEvent;
+import ca.xshade.bukkit.towny.object.Town;
 
 public class TownySpout extends JavaPlugin {
 	public Towny towny;
 	public AppearanceManager apearancemanager;
 	private final TownySpoutPlayerListener playerListener = new TownySpoutPlayerListener(this);
-	private TownyxListener townyxListener;
+	private TownyxListener townyxListener = new TownyxListener(this);;
+	private TownySpoutGuiListener townySpoutGuiListener = new TownySpoutGuiListener(this);
 	private Logger logger = Logger.getLogger("net.croxis.townyspout");
 	public HashMap<String, String> musicdb = new HashMap<String, String>();
 	public HashMap<String, String> capedb = new HashMap<String, String>();
 	public HashMap<String, String> texturedb = new HashMap<String, String>();
+	public HashMap<String, ArrayList<TownGui>> townGuidb = new HashMap<String, ArrayList<TownGui>>();
+	public HashMap<SpoutPlayer, TownGui> activeTownScreens = new HashMap<SpoutPlayer, TownGui>();
 
 	public void onDisable() {
 		// TODO Auto-generated method stub
@@ -45,10 +55,11 @@ public class TownySpout extends JavaPlugin {
 		
 		final PluginManager pluginManager = getServer().getPluginManager();
 		//final Plugin towny = (Plugin)pluginManager.getPlugin("Towny");
-		townyxListener = new TownyxListener(this);
+		
 		
 		pluginManager.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, townyxListener, Priority.Normal, this);
+		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, townySpoutGuiListener, Priority.Normal, this);
 		
 		getCommand("townx").setExecutor(new TownXCommand(this));
 		getCommand("townyadminx").setExecutor(new TownyAdminXCommand(this));
@@ -122,6 +133,28 @@ public class TownySpout extends JavaPlugin {
 		getConfiguration().setProperty("texture." + name, url);
 		getConfiguration().save();
 		texturedb.put(name, url);
+	}
+	
+	public void addTownGui(SpoutPlayer sPlayer, String name, TownGui gui){
+		if (!townGuidb.containsKey(name))
+			townGuidb.put(name, new ArrayList<TownGui>());
+		townGuidb.get(name).add(gui);
+		activeTownScreens.put(sPlayer, gui);
+	}
+	
+	public void removeTownGui(SpoutPlayer sPlayer, String name, TownGui gui){
+		townGuidb.get(name).remove(gui);
+		activeTownScreens.remove(sPlayer);
+	}
+	
+	public void updateTownGui(TownPermissionSetEvent event){
+		Town town = event.getTown();
+		String permString = event.getPermString();
+		boolean perm = event.isPerm();
+		
+		for (TownGui gui : townGuidb.get(town.getName())){
+			gui.updatePermissionButton(permString, perm);
+		}
 	}
 
 }
