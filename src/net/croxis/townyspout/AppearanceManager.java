@@ -1,13 +1,16 @@
 package net.croxis.townyspout;
 
+import net.croxis.townyspout.db.SQLNationx;
 import net.croxis.townyspout.db.SQLTownx;
 
 import org.bukkit.entity.Player;
 
 import org.getspout.spoutapi.SpoutManager;
 
-import ca.xshade.bukkit.towny.NotRegisteredException;
-import ca.xshade.bukkit.towny.db.SQLTown;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.db.SQLNation;
+import com.palmergames.bukkit.towny.db.SQLTown;
+
 
 public class AppearanceManager {
 	TownySpout plugin;
@@ -37,11 +40,20 @@ public class AppearanceManager {
 	}
 	
 	public void setGlobalCape(Player player){
-		try {
+		try {			
 			if (plugin.towny.getTownyUniverse().getResident(player.getName()).hasTown()){
 				String townName = plugin.towny.getTownyUniverse().getResident(player.getName()).getTown().getName();
 				SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", townName).findUnique();
-				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_id", sqltown.getId()).findUnique();
+				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", sqltown.getName()).findUnique();
+				
+				if (sqltown.getNation() != null){
+					SQLNation sqlnation = sqltown.getNation();
+					SQLNationx sqlnationx = plugin.getDatabase().find(SQLNationx.class).where().eq("nation_name", sqlnation.getName()).findUnique();
+					if (sqlnationx != null){
+						if (sqlnationx.getCapeURL() != null)
+							SpoutManager.getAppearanceManager().setGlobalCloak(SpoutManager.getPlayer(player), sqlnationx.getCapeURL());
+					}
+				}
 				if (sqltownx != null){
 					if (sqltownx.getCapeURL() != null){
 						SpoutManager.getAppearanceManager().setGlobalCloak(SpoutManager.getPlayer(player), sqltownx.getCapeURL());

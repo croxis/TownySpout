@@ -5,7 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ca.xshade.bukkit.towny.db.SQLTown;
+import com.palmergames.bukkit.towny.db.SQLTown;
+
 
 
 @Entity()

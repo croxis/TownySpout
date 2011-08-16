@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javax.persistence.PersistenceException;
 
+import net.croxis.townyspout.db.SQLNationx;
 import net.croxis.townyspout.db.SQLResidence;
 import net.croxis.townyspout.db.SQLResidentx;
 import net.croxis.townyspout.db.SQLTownx;
@@ -22,10 +23,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.ConfigurationNode;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import ca.xshade.bukkit.towny.Towny;
-import ca.xshade.bukkit.towny.api.TownPermissionSetEvent;
-import ca.xshade.bukkit.towny.db.SQLNation;
-import ca.xshade.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.Towny;
+import com.palmergames.bukkit.towny.api.TownPermissionSetEvent;
+import com.palmergames.bukkit.towny.object.Town;
+
 
 public class TownySpout extends JavaPlugin {
 	public Towny towny;
@@ -65,6 +66,7 @@ public class TownySpout extends JavaPlugin {
 		
 		getCommand("townx").setExecutor(new TownXCommand(this));
 		getCommand("townyadminx").setExecutor(new TownyAdminXCommand(this));
+		getCommand("nationx").setExecutor(new NationXCommand(this));
 	}
 	
 	private void setupDatabase()
@@ -84,7 +86,7 @@ public class TownySpout extends JavaPlugin {
     public List<Class<?>> getDatabaseClasses() {
         List<Class<?>> list = new ArrayList<Class<?>>();
         list.add(SQLTownx.class);
-        list.add(SQLNation.class);
+        list.add(SQLNationx.class);
         list.add(SQLResidence.class);
         list.add(SQLResidentx.class);
         return list;

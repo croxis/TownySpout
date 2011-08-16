@@ -10,16 +10,17 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import ca.xshade.bukkit.towny.NotRegisteredException;
-import ca.xshade.bukkit.towny.TownyException;
-import ca.xshade.bukkit.towny.TownySettings;
-import ca.xshade.bukkit.towny.api.TownEnterEvent;
-import ca.xshade.bukkit.towny.object.Coord;
-import ca.xshade.bukkit.towny.object.Resident;
-import ca.xshade.bukkit.towny.object.Town;
-import ca.xshade.bukkit.towny.object.TownBlock;
-import ca.xshade.bukkit.towny.object.TownyWorld;
-import ca.xshade.bukkit.towny.object.WorldCoord;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.api.TownEnterEvent;
+import com.palmergames.bukkit.towny.object.Coord;
+import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.object.TownyWorld;
+import com.palmergames.bukkit.towny.object.WorldCoord;
+
 
 public class TownySpoutPlayerListener extends PlayerListener {
 	TownySpout plugin;

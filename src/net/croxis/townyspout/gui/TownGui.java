@@ -13,11 +13,12 @@ import org.getspout.spoutapi.gui.GenericPopup;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import ca.xshade.bukkit.towny.NotRegisteredException;
-import ca.xshade.bukkit.towny.TownySettings;
-import ca.xshade.bukkit.towny.object.Resident;
-import ca.xshade.bukkit.towny.object.Town;
-import ca.xshade.bukkit.towny.object.TownyPermission;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.object.TownyPermission;
+
 
 public class TownGui {
 	private TownySpout plugin;
@@ -121,9 +122,8 @@ public class TownGui {
 			l.setHexColor(16777215);
 			l.setX(x);
 			l.setY(y);
-			l.setCentered(false);
 			y = y + yd;
-			townScreen.attachWidget(l);
+			townScreen.attachWidget(plugin, l);
 		}
 		
 		
@@ -208,11 +208,11 @@ public class TownGui {
 				b.setHeight(12);
 			} else
 				b.setEnabled(false);
-			b.setCentered(false);
+			//b.setCentered(false);
 			//b.setX(x);
 			//b.setY(y);
 			//y = y + yd;
-			townScreen.attachWidget(b);
+			townScreen.attachWidget(plugin, b);
 		}
 		
 		for (UUID uuid : permissionButtons.keySet()){

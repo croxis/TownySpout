@@ -10,9 +10,10 @@ import org.getspout.spoutapi.event.spout.SpoutListener;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import ca.xshade.bukkit.towny.NotRegisteredException;
-import ca.xshade.bukkit.towny.object.Resident;
-import ca.xshade.bukkit.towny.object.Town;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.Town;
+
 
 public class TownySpoutGuiListener extends SpoutListener{
 	private TownySpout plugin;

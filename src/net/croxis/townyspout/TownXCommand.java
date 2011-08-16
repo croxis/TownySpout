@@ -10,14 +10,15 @@ import org.bukkit.entity.Player;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import ca.xshade.bukkit.towny.NotRegisteredException;
-import ca.xshade.bukkit.towny.TownyException;
-import ca.xshade.bukkit.towny.TownySettings;
-import ca.xshade.bukkit.towny.db.SQLTown;
-import ca.xshade.bukkit.towny.object.Resident;
-import ca.xshade.bukkit.towny.object.Town;
-import ca.xshade.bukkit.util.ChatTools;
-import ca.xshade.util.StringMgmt;
+import com.palmergames.bukkit.towny.NotRegisteredException;
+import com.palmergames.bukkit.towny.TownyException;
+import com.palmergames.bukkit.towny.TownySettings;
+import com.palmergames.bukkit.towny.db.SQLTown;
+import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.Town;
+import com.palmergames.bukkit.util.ChatTools;
+import com.palmergames.util.StringMgmt;
+
 
 public class TownXCommand implements CommandExecutor{
 private TownySpout plugin;
