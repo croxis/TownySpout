@@ -1,6 +1,6 @@
 ﻿name: TownySpout
 main: net.croxis.townyspout.TownySpout
-version: 0.3
+version: 0.4
 author: croxis
 website: https://github.com/croxis/TownySpout
 database: true
@@ -22,7 +22,11 @@ commands:
         aliases: [tx]
     townyadminx:
         aliases: [tax]
-        
+    residentx:
+        aliases: [rx]
+    nationx:
+        aliases: [nx]
+
 music:
     sample1: http://your.site.here/song1.ogg
     sample2: http://your.site.here/song2.ogg

@@ -1,6 +1,7 @@
 package net.croxis.townyspout;
 
 import net.croxis.townyspout.db.SQLNationx;
+import net.croxis.townyspout.db.SQLResidence;
 import net.croxis.townyspout.db.SQLTownx;
 
 import org.bukkit.entity.Player;
@@ -45,20 +46,27 @@ public class AppearanceManager {
 				String townName = plugin.towny.getTownyUniverse().getResident(player.getName()).getTown().getName();
 				SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", townName).findUnique();
 				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", sqltown.getName()).findUnique();
+				SQLResidence sqlresidentx = plugin.getDatabase().find(SQLResidence.class).where().eq("player_name", player.getName()).findUnique();
+				String capeUrl = null;
 				
 				if (sqltown.getNation() != null){
 					SQLNation sqlnation = sqltown.getNation();
 					SQLNationx sqlnationx = plugin.getDatabase().find(SQLNationx.class).where().eq("nation_name", sqlnation.getName()).findUnique();
-					if (sqlnationx != null){
-						if (sqlnationx.getCapeURL() != null)
-							SpoutManager.getAppearanceManager().setGlobalCloak(SpoutManager.getPlayer(player), sqlnationx.getCapeURL());
-					}
+					if (sqlnationx != null)
+						capeUrl = sqlnationx.getCapeURL();
 				}
-				if (sqltownx != null){
-					if (sqltownx.getCapeURL() != null){
-						SpoutManager.getAppearanceManager().setGlobalCloak(SpoutManager.getPlayer(player), sqltownx.getCapeURL());
-					}
-				}
+				if (sqltownx != null)
+					capeUrl = sqltownx.getCapeURL();
+				
+				if (sqlresidentx != null)
+					capeUrl = sqlresidentx.getCapeURL();
+				
+				if (capeUrl != null)
+					SpoutManager.getAppearanceManager().setGlobalCloak(SpoutManager.getPlayer(player), capeUrl);
+			} else {
+				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", "wild").findUnique();
+				if (sqltownx != null)
+					SpoutManager.getAppearanceManager().setGlobalCloak(SpoutManager.getPlayer(player), sqltownx.getCapeURL());
 			}
 		} catch (NotRegisteredException e) {
 			e.printStackTrace();

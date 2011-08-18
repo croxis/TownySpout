@@ -61,9 +61,12 @@ public class TownySpout extends JavaPlugin {
 		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, townyxListener, Priority.Normal, this);
 		pluginManager.registerEvent(Event.Type.CUSTOM_EVENT, townySpoutGuiListener, Priority.Normal, this);
 		
+		getCommand("nationx").setExecutor(new NationXCommand(this));
+		getCommand("residentx").setExecutor(new ResidentXCommand(this));
 		getCommand("townx").setExecutor(new TownXCommand(this));
 		getCommand("townyadminx").setExecutor(new TownyAdminXCommand(this));
-		getCommand("nationx").setExecutor(new NationXCommand(this));
+		
+		
 	}
 	
 	private void setupDatabase()

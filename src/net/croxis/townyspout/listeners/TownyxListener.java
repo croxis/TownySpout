@@ -72,6 +72,18 @@ public class TownyxListener extends TownyListener{
 		plugin.towny.sendDebugMsg("WildEnterEvent");
 		SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
 		SpoutManager.getSoundManager().stopMusic(player, false, 2000);
+		SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", "wild").findUnique();
+		if (sqltownx != null){
+			SpoutPlayer spoutPlayer = SpoutManager.getPlayer(event.getPlayer());
+			String musicUrl = sqltownx.getMusicURL();
+			String textureUrl = sqltownx.getTexturePackURL();
+			if (musicUrl != null){
+				SpoutManager.getSoundManager().playCustomMusic(plugin, spoutPlayer, musicUrl, true);
+			}
+			if (textureUrl != null)
+				spoutPlayer.setTexturePack(textureUrl);
+		}
+		
 	}
 	
 	@Override
