@@ -41,10 +41,7 @@ public class TownySpout extends JavaPlugin {
 	public HashMap<String, ArrayList<TownGui>> townGuidb = new HashMap<String, ArrayList<TownGui>>();
 	public HashMap<SpoutPlayer, TownGui> activeTownScreens = new HashMap<SpoutPlayer, TownGui>();
 
-	public void onDisable() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onDisable() {}
 	
 	public void onEnable() {
 		

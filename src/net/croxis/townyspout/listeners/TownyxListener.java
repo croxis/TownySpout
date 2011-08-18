@@ -10,6 +10,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.api.AreaEnterEvent;
+import com.palmergames.bukkit.towny.api.NationRenameEvent;
 import com.palmergames.bukkit.towny.api.TownEnterEvent;
 import com.palmergames.bukkit.towny.api.TownPermissionSetEvent;
 import com.palmergames.bukkit.towny.api.TownRenameEvent;
@@ -84,6 +85,14 @@ public class TownyxListener extends TownyListener{
 		SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", event.getOldName()).findUnique();
 		sqltownx.setTownName(event.getNewName());
 		plugin.getDatabase().save(sqltownx);
+	}
+	
+	@Override
+	public void onNationRename(NationRenameEvent event){
+		// Stupid bukkit, forcing us to not link db cross plugins
+		SQLNationx sqlnationx = plugin.getDatabase().find(SQLNationx.class).where().eq("nation_name", event.getOldName()).findUnique();
+		sqlnationx.setNationName(event.getNewName());
+		plugin.getDatabase().save(sqlnationx);
 	}
 
 }
