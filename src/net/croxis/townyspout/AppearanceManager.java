@@ -9,8 +9,7 @@ import org.bukkit.entity.Player;
 import org.getspout.spoutapi.SpoutManager;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
-import com.palmergames.bukkit.towny.db.SQLNation;
-import com.palmergames.bukkit.towny.db.SQLTown;
+import com.palmergames.bukkit.towny.object.Town;
 
 
 public class AppearanceManager {
@@ -43,15 +42,15 @@ public class AppearanceManager {
 	public void setGlobalCape(Player player){
 		try {			
 			if (plugin.towny.getTownyUniverse().getResident(player.getName()).hasTown()){
-				String townName = plugin.towny.getTownyUniverse().getResident(player.getName()).getTown().getName();
-				SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", townName).findUnique();
-				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", sqltown.getName()).findUnique();
+				Town town = plugin.towny.getTownyUniverse().getResident(player.getName()).getTown();
+				
+				//SQLTown sqltown = plugin.towny.getDatabase().find(SQLTown.class).where().ieq("name", townName).findUnique();
+				SQLTownx sqltownx = plugin.getDatabase().find(SQLTownx.class).where().eq("town_name", town.getName()).findUnique();
 				SQLResidence sqlresidentx = plugin.getDatabase().find(SQLResidence.class).where().eq("player_name", player.getName()).findUnique();
 				String capeUrl = null;
 				
-				if (sqltown.getNation() != null){
-					SQLNation sqlnation = sqltown.getNation();
-					SQLNationx sqlnationx = plugin.getDatabase().find(SQLNationx.class).where().eq("nation_name", sqlnation.getName()).findUnique();
+				if (town.hasNation()){
+					SQLNationx sqlnationx = plugin.getDatabase().find(SQLNationx.class).where().eq("nation_name", town.getNation().getName()).findUnique();
 					if (sqlnationx != null)
 						capeUrl = sqlnationx.getCapeURL();
 				}
