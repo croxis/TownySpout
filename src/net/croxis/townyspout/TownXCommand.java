@@ -43,15 +43,14 @@ private TownySpout plugin;
 
 	private void parseTownCommand(Player player, String[] split) throws NotRegisteredException {
 		if (split.length == 0){
-			//player.sendMessage("Need additional info");
 			TownGui townGui = new TownGui(plugin);
 			townGui.create(player);
 			Resident resident = plugin.towny.getTownyUniverse().getResident(player.getName());
 			SpoutPlayer sPlayer = SpoutManager.getPlayer(player);
 			if (resident.hasTown())
 				plugin.addTownGui(sPlayer, resident.getTown().getName(), townGui);
-			else
-				plugin.addTownGui(sPlayer, "wild", townGui);
+			//else
+			//	plugin.addTownGui(sPlayer, "wild", townGui);
 			return;
 		}
 			String[] newSplit = StringMgmt.remFirstArg(split);

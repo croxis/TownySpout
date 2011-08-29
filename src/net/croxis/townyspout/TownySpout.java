@@ -12,6 +12,7 @@ import net.croxis.townyspout.db.SQLResidence;
 import net.croxis.townyspout.db.SQLResidentx;
 import net.croxis.townyspout.db.SQLTownx;
 import net.croxis.townyspout.gui.TownGui;
+import net.croxis.townyspout.listeners.TownyObserver;
 import net.croxis.townyspout.listeners.TownySpoutGuiListener;
 import net.croxis.townyspout.listeners.TownySpoutPlayerListener;
 import net.croxis.townyspout.listeners.TownyxListener;
@@ -39,7 +40,8 @@ public class TownySpout extends JavaPlugin {
 	public HashMap<String, String> capedb = new HashMap<String, String>();
 	public HashMap<String, String> texturedb = new HashMap<String, String>();
 	public HashMap<String, ArrayList<TownGui>> townGuidb = new HashMap<String, ArrayList<TownGui>>();
-	public HashMap<SpoutPlayer, TownGui> activeTownScreens = new HashMap<SpoutPlayer, TownGui>();
+	public HashMap<SpoutPlayer, TownGui> playerTownScreens = new HashMap<SpoutPlayer, TownGui>();
+	private TownyObserver townyObserver;
 
 	public void onDisable() {}
 	
@@ -65,6 +67,9 @@ public class TownySpout extends JavaPlugin {
 		getCommand("residentx").setExecutor(new ResidentXCommand(this));
 		getCommand("townx").setExecutor(new TownXCommand(this));
 		getCommand("townyadminx").setExecutor(new TownyAdminXCommand(this));
+		
+		//townyObserver = new TownyObserver(); 
+		//towny.getTownyUniverse().addObserver(townyObserver);
 		
 		
 	}
@@ -146,12 +151,12 @@ public class TownySpout extends JavaPlugin {
 		if (!townGuidb.containsKey(name))
 			townGuidb.put(name, new ArrayList<TownGui>());
 		townGuidb.get(name).add(gui);
-		activeTownScreens.put(sPlayer, gui);
+		playerTownScreens.put(sPlayer, gui);
 	}
 	
 	public void removeTownGui(SpoutPlayer sPlayer, String name, TownGui gui){
 		townGuidb.get(name).remove(gui);
-		activeTownScreens.remove(sPlayer);
+		playerTownScreens.remove(sPlayer);
 	}
 	
 	public void updateTownGui(TownPermissionSetEvent event){

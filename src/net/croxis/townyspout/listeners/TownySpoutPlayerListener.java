@@ -14,6 +14,7 @@ import com.palmergames.bukkit.towny.NotRegisteredException;
 import com.palmergames.bukkit.towny.TownyException;
 import com.palmergames.bukkit.towny.TownySettings;
 import com.palmergames.bukkit.towny.api.TownEnterEvent;
+import com.palmergames.bukkit.towny.api.WildEnterEvent;
 import com.palmergames.bukkit.towny.object.Coord;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
@@ -47,8 +48,8 @@ public class TownySpoutPlayerListener extends PlayerListener {
 			}
 			
 		} catch (NotRegisteredException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			WildEnterEvent ev = new WildEnterEvent(player);
+			plugin.getServer().getPluginManager().callEvent(ev);
 		}
 		
 		// Create GUI interfaces

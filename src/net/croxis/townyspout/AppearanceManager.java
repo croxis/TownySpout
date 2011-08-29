@@ -5,7 +5,6 @@ import net.croxis.townyspout.db.SQLResidence;
 import net.croxis.townyspout.db.SQLTownx;
 
 import org.bukkit.entity.Player;
-
 import org.getspout.spoutapi.SpoutManager;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;

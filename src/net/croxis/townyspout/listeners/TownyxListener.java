@@ -4,19 +4,16 @@ import net.croxis.townyspout.TownySpout;
 import net.croxis.townyspout.db.SQLNationx;
 import net.croxis.townyspout.db.SQLTownx;
 
-import org.bukkit.event.Event.Type;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.palmergames.bukkit.towny.NotRegisteredException;
-import com.palmergames.bukkit.towny.api.AreaEnterEvent;
 import com.palmergames.bukkit.towny.api.NationRenameEvent;
 import com.palmergames.bukkit.towny.api.TownEnterEvent;
 import com.palmergames.bukkit.towny.api.TownPermissionSetEvent;
 import com.palmergames.bukkit.towny.api.TownRenameEvent;
 import com.palmergames.bukkit.towny.api.TownyListener;
 import com.palmergames.bukkit.towny.api.WildEnterEvent;
-import com.palmergames.bukkit.towny.db.SQLTown;
 
 
 public class TownyxListener extends TownyListener{
